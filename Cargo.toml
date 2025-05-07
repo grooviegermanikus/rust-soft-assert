@@ -2,9 +2,12 @@
 name = "rust-soft-assert"
 version = "0.1.0"
 edition = "2021"
+license = "AGPL"
+keywords = ["rust", "debugging"]
 
 [dependencies]
 log = "*"
+backtrace = "0.3.67"
 
 [dev-dependencies]
 tracing-subscriber = { version = "0.3.17", features = ["std", "env-filter"] }
