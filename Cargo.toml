@@ -7,7 +7,6 @@ keywords = ["rust", "debugging"]
 
 [dependencies]
 log = "*"
-backtrace = "0.3.67"
 
 [dev-dependencies]
 tracing-subscriber = { version = "0.3.17", features = ["std", "env-filter"] }
