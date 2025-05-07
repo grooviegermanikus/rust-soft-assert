@@ -3,7 +3,7 @@ name = "rust-soft-assert"
 version = "0.1.0"
 edition = "2021"
 license = "AGPL"
-keywords = ["rust", "debugging"]
+keywords = ["assert", "assertion", "debugging"]
 
 [dependencies]
 log = "*"
