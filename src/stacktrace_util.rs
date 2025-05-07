@@ -95,7 +95,7 @@ pub fn backtrack_frame(fn_skip_frame: fn(&str) -> bool) -> Result<Stracktrace, B
 
             // symbol.name looks like this "rust_basics::debugging_lock_newtype::backtrack::h1cb6032f9b10548c"
             let symbol_name = symbol.name().unwrap().to_string();
-            // module_path is "rust_debugging_locks::stacktrace_util"
+            // module_path is "rust_soft_assert::stacktrace_util"
 
             if !symbol_name.starts_with("backtrace::backtrace::")
                 && !fn_skip_frame(symbol_name.as_str())
@@ -169,11 +169,11 @@ pub fn log_frames(level: Level, msg: &str, stacktrace: &Stracktrace) {
 
 pub fn get_current_stracktrace() -> Result<Stracktrace, BacktrackError> {
     // covers:
-    // rust_debugging_locks::debugging_locks::
-    // rust_debugging_locks::stacktrace_util::
-    const OMIT_FRAME_SUFFIX1: &str = "rust_debugging_locks:";
-    // <rust_debugging_locks::debugging_locks::RwLockWrapped<T> as core::default::Default>::default::haed7701ba5f48aa2:97
-    const OMIT_FRAME_SUFFIX2: &str = "<rust_debugging_locks:";
+    // rust_soft_assert::debugging_locks::
+    // rust_soft_assert::stacktrace_util::
+    const OMIT_FRAME_SUFFIX1: &str = "rust_soft_assert:";
+    // <rust_soft_assert::debugging_locks::RwLockWrapped<T> as core::default::Default>::default::haed7701ba5f48aa2:97
+    const OMIT_FRAME_SUFFIX2: &str = "<rust_soft_assert:";
     backtrack_frame(|symbol_name| {
         symbol_name.starts_with(OMIT_FRAME_SUFFIX1) || symbol_name.starts_with(OMIT_FRAME_SUFFIX2)
     })
@@ -196,7 +196,8 @@ mod tests {
 
     #[test]
     fn stacktrace_from_method() {
-        tracing_subscriber::fmt::init();
+        let _ = tracing_subscriber::fmt::try_init();
+
         let stacktrace = caller_function().unwrap();
         log_frames(Level::Info, "stacktrace_from_method", &stacktrace);
         assert!(

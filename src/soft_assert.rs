@@ -24,7 +24,7 @@ macro_rules! soft_assert {
 
 #[test]
 fn test_soft() {
-    tracing_subscriber::fmt::fmt().init();
+    let _ = tracing_subscriber::fmt::try_init();
     
     soft_assert!(false, "This is a soft assert");
 
